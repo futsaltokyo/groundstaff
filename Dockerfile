@@ -4,15 +4,15 @@ FROM python:3.6-alpine
 # https://gist.github.com/varyonic/dea40abcf3dd891d204ef235c6e8dd79
 
 # TODO: Caching chromedriver installation
-RUN apt-get install -y wget xvfb unzip
+RUN apk add wget xvfb unzip
 
 # Set up the Chrome PPA
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 
 # Update the package list and install chrome
-RUN apt-get update -y
-RUN apt-get install -y google-chrome-stable
+RUN apk update
+RUN apk add google-chrome-stable
 
 # Set up Chromedriver Environment variables
 ENV CHROME_DRIVER_VER 2.9
