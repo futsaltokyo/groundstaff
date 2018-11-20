@@ -74,11 +74,11 @@ def step2_confirm(driver, mobile_phone_number):
 @click.option('--indoor/--outdoor', default=False,
               help='set --indoor or --outdoor; defaults to outdoor')
 def main(username, password, date, timerange, tel, indoor):
+    driver = getWebDriver()
     try:
         hour_from, hour_to = timerange.split('-')
         # TODO: validation on date & timerange
 
-        driver = getWebDriver()
         step1_login_reserve(
             driver, username, password, date, hour_from, hour_to, indoor
         )
