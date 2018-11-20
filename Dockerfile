@@ -1,30 +1,17 @@
 FROM python:3.6-alpine
 
 # Source for chrome driver installation
-# https://gist.github.com/varyonic/dea40abcf3dd891d204ef235c6e8dd79
 
 # TODO: Caching chromedriver installation
-RUN apk add wget xvfb unzip
+# https://github.com/joyzoursky/docker-python-chromedriver/blob/master/py3/py3.6-alpine3.7-selenium/Dockerfile
 
-# Set up the Chrome PPA
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+# update apk repo
+RUN echo "http://dl-4.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.7/community" >> /etc/apk/repositories
 
-# Update the package list and install chrome
+# install chromedriver
 RUN apk update
-RUN apk add google-chrome-stable
-
-# Set up Chromedriver Environment variables
-ENV CHROME_DRIVER_VER 2.9
-ENV CHROME_DRIVER_DIR /usr/bin/google-chrome-driver
-RUN mkdir $CHROME_DRIVER_DIR
-
-# Download and install Chromedriver
-RUN wget -q --continue -P $CHROME_DRIVER_DIR "http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VER/chromedriver_linux64.zip"
-RUN unzip $CHROME_DRIVER_DIR/chromedriver* -d $CHROME_DRIVER_DIR
-
-# Put Chromedriver into the PATH
-ENV PATH $CHROME_DRIVER_DIR:$PATH
+RUN apk add chromium chromium-chromedriver
 
 # install requirements
 # Layer caching
