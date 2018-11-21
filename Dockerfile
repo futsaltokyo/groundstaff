@@ -15,13 +15,8 @@ RUN apk add chromium chromium-chromedriver
 
 # install requirements
 # Layer caching
-COPY requirements.txt /
+COPY . .
 RUN pip install -r requirements.txt
 
-ENV groundstaff groundstaff.py
-ENV config config.py
-
-ADD $groundstaff $config /
-
-# TODO: Modify the input option 
-CMD [ "python", "./groundstaff.py" ]
+ENTRYPOINT [ "python", "./groundstaff.py" ]
+CMD ["--help"]
