@@ -1,24 +1,22 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3.6
     steps:
       - checkout
       - run:
-          command:
-            sudo pip install pipenv
-            pipenv install -r ./requirements.txt
-            sudo pip install flake8
-            flake8 .
-  
-  test:
-    docker:
-      - image: circleci/python:3.6
-    steps:
+          name: deps
+          command: sudo pip install flake8
       - run:
-        command:
-          echo 'TODO'
+          name: requirements
+          command: pip install --user -r ./requirements.txt
+      - run:
+          name: lint
+          command: flake8 .
+      - run:
+          name: test
+          command: echo 'TODO tests'
   
   dockerize:
     machine: true
@@ -34,11 +32,10 @@ workflows:
   version: 2
   main-flow:
     jobs:
-      - build
       - test
       # - dockerize:
       #     requires:
-      #       - build
+      #       - test
       #     filters:
       #       branches:
       #         only: master
