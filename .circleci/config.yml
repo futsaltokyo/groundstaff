@@ -1,0 +1,44 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      - run:
+          command:
+            sudo pip install pipenv
+            pipenv install -r ./requirements.txt
+            sudo pip install flake8
+            flake8 .
+  
+  test:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - run:
+        command:
+          echo 'TODO'
+  
+  dockerize:
+    machine: true
+    steps:
+     - checkout
+     - run: docker build -t futsaltokyo/groundstaff:$CIRCLE_BRANCH .
+
+     # deploy the image
+     - run: docker push futsaltokyo/groundstaff:$CIRCLE_BRANCH
+
+
+workflows:
+  version: 2
+  main-flow:
+    jobs:
+      - build
+      - test
+      # - dockerize:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only: master
