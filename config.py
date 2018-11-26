@@ -7,7 +7,7 @@
 #   hour_from in 24H format
 #   hour_to in 24H format
 RESERVATION_FORM_URL = (
-    'https://labola.jp/reserve/facility/',
+    'https://labola.jp/reserve/facility/'
     '{}/reserve/normal/{}-{}-{}'
 )
 

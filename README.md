@@ -23,6 +23,7 @@ python groundstaff.py --help
     --tel TEXT            mobile tel number to reserve in
     --indoor / --outdoor  set this if booking indoor court; defaults to outdoor
                             court
+    --dryrun              use --dryrun if you do not want to make reservation
 
 
 # Example to book for Bonfim indoor court from 1800 to 2000 for 31st Dec 2019
@@ -31,5 +32,5 @@ python groundstaff.py --username 0001 --password 50meSekreT! --date 2019-12-31 -
 
 ## TODOs
 
-- [ ] Dockerize (containerization)
-- [ ] CI builds
+- [x] Dockerize (containerization)
+- [x] CI builds
